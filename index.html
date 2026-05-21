@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@400&display=swap" rel="stylesheet" />
-    <!-- Compiled from _home.scss -->
     <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
@@ -100,57 +99,42 @@
         </div>
 
         <!-- ===================== ABOUT ===================== -->
+        <!-- FIX 1: Proper two-column layout — image left, content right, no overlap -->
         <section class="about">
-            <div class="about__image-wrap">
-                <img src="images/picture.png" alt="About" class="about__image" />
-            </div>
-            <div class="about__content">
-                <h2 class="about__title">Highly effective solutions</h2>
-                <p class="about__description">Lorem ipsum dolor sit amet consectetur adipiscing eli mattis sit phasellus mollis sit aliquam sit nullam neque ultrices.</p>
-                <div class="about__cta">
-                    <a href="#" class="btn btn--primary btn--arrow">
-                        Get started
-                        <span class="btn__arrow">›</span>
-                    </a>
-                    <a href="#" class="btn btn--outline-dark">Learn more</a>
+            <div class="about__inner">
+                <div class="about__image-wrap">
+                    <img src="images/picture.png" alt="About" class="about__image" />
+                </div>
+                <div class="about__content">
+                    <h2 class="about__title">Highly effective solutions</h2>
+                    <p class="about__description">Lorem ipsum dolor sit amet consectetur adipiscing eli mattis sit phasellus mollis sit aliquam sit nullam neque ultrices.</p>
+                    <div class="about__cta">
+                        <a href="#" class="btn btn--primary btn--arrow">
+                            Get started
+                            <span class="btn__arrow">›</span>
+                        </a>
+                        <a href="#" class="btn btn--outline-dark">Learn more</a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- ===================== ARTWORKS ===================== -->
+        <!-- FIX 2: Cursor-driven scroll — no prev/next buttons, no See All -->
         <section class="artworks">
             <div class="artworks__header">
                 <h2 class="artworks__title">Artworks</h2>
                 <p class="artworks__desc">Lorem ipsum dolor sit amet consectetur adipiscing eli mattis sit phasellus mollis sit aliquam sit nullam.</p>
             </div>
 
-            <div class="artworks__outer">
+            <div class="artworks__outer" id="artworksOuter">
+                <!-- Left hover zone -->
+                <div class="artworks__hover-zone artworks__hover-zone--left" id="hoverLeft"></div>
+                <!-- Right hover zone -->
+                <div class="artworks__hover-zone artworks__hover-zone--right" id="hoverRight"></div>
+
                 <div class="artworks__track" id="track"></div>
             </div>
-
-            <div class="artworks__controls">
-                <button class="artworks__nav artworks__nav--prev" id="navPrev" aria-label="Previous" disabled>
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <polyline points="13,3 5,9 13,15" stroke="#FFFCF6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <span class="artworks__counter" id="counter">1 / 3</span>
-                <button class="artworks__nav artworks__nav--next" id="navNext" aria-label="Next">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <polyline points="5,3 13,9 5,15" stroke="#FFFCF6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </div>
-
-            <a href="#" class="artworks__see-all">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <rect x="1" y="1" width="5" height="5" rx="1" stroke="#FFFCF6" stroke-width="1.2" fill="none"/>
-                    <rect x="8" y="1" width="5" height="5" rx="1" stroke="#FFFCF6" stroke-width="1.2" fill="none"/>
-                    <rect x="1" y="8" width="5" height="5" rx="1" stroke="#FFFCF6" stroke-width="1.2" fill="none"/>
-                    <rect x="8" y="8" width="5" height="5" rx="1" stroke="#FFFCF6" stroke-width="1.2" fill="none"/>
-                </svg>
-                See All
-            </a>
         </section>
 
         <!-- Comment Modal -->
@@ -252,6 +236,7 @@
         </section>
 
         <!-- ===================== NEWSLETTER / CTA ===================== -->
+        <!-- Continuous auto-scroll gallery — two columns, opposite directions -->
         <section class="newsletter">
             <div class="newsletter__inner">
                 <div class="newsletter__content">
@@ -262,16 +247,38 @@
                         <button class="newsletter__btn">Subscribe</button>
                     </div>
                 </div>
+
                 <div class="newsletter__gallery">
-                    <div class="newsletter__col newsletter__col--left">
-                        <div class="newsletter__photo"><img src="images/ayosnegosyo.png" alt="" /></div>
-                        <div class="newsletter__photo"><img src="https://placehold.co/219x345" alt="" /></div>
-                        <div class="newsletter__photo"><img src="https://placehold.co/219x345" alt="" /></div>
+                    <!-- Left column scrolls UP continuously -->
+                    <div class="newsletter__col-wrap">
+                        <div class="newsletter__col newsletter__col--up" id="galleryColLeft">
+                            <!-- original set -->
+                            <div class="newsletter__photo"><img src="images/ayosnegosyo.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/219x345/c6b7a3/531A24?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/219x345/e7d8c4/531A24?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/219x280/531A24/fffcf6?text=+" alt="" /></div>
+                            <!-- duplicate for seamless loop -->
+                            <div class="newsletter__photo"><img src="images/ayosnegosyo.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/219x345/c6b7a3/531A24?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/219x345/e7d8c4/531A24?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/219x280/531A24/fffcf6?text=+" alt="" /></div>
+                        </div>
                     </div>
-                    <div class="newsletter__col newsletter__col--right">
-                        <div class="newsletter__photo"><img src="https://placehold.co/223x288" alt="" /></div>
-                        <div class="newsletter__photo"><img src="https://placehold.co/224x765" alt="" /></div>
-                        <div class="newsletter__photo"><img src="https://placehold.co/218x351" alt="" /></div>
+
+                    <!-- Right column scrolls DOWN continuously -->
+                    <div class="newsletter__col-wrap">
+                        <div class="newsletter__col newsletter__col--down" id="galleryColRight">
+                            <!-- original set -->
+                            <div class="newsletter__photo"><img src="https://placehold.co/223x288/b8863a/fffcf6?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/224x380/531A24/fffcf6?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/218x351/c6b7a3/531A24?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/220x260/e7d8c4/531A24?text=+" alt="" /></div>
+                            <!-- duplicate for seamless loop -->
+                            <div class="newsletter__photo"><img src="https://placehold.co/223x288/b8863a/fffcf6?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/224x380/531A24/fffcf6?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/218x351/c6b7a3/531A24?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="https://placehold.co/220x260/e7d8c4/531A24?text=+" alt="" /></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -328,14 +335,11 @@ const cards = [
   { name:'@keanariela', verified:true,  color:'#1a1a2e', img:'images/MCSouth.png' },
   { name:'@keanariela', verified:true,  color:'#1a1a2e', img:'images/MCBuilders.png' },
   { name:'@keanariela', verified:true,  color:'#1a1a2e', img:'images/MCtech.png' },
-  
 ];
 
-/* ── CAROUSEL CONSTANTS — keep in sync with _home.scss ── */
-const VISIBLE = 3;
-const CARD_W  = 300;
-const GAP     = 24;
-const STEP    = CARD_W + GAP;
+const CARD_W = 300;
+const GAP    = 24;
+const STEP   = CARD_W + GAP;
 
 const seededComments = [
   { initials:'JD', name:'@johndoe',    text:'This is absolutely stunning work! 🔥' },
@@ -395,98 +399,55 @@ function makeCard(d, idx) {
   return card;
 }
 
+/* ── CURSOR-DRIVEN SCROLL ── */
+// Build a flat infinite-duplicated track for smooth continuous scroll
+cards.forEach((d, i) => track.appendChild(makeCard(d, i)));
+// Duplicate cards for seamless looping
 cards.forEach((d, i) => track.appendChild(makeCard(d, i)));
 
-/* ── INFINITE LOOP CAROUSEL ── */
-const totalPages = Math.ceil(cards.length / VISIBLE);
+const outer = document.getElementById('artworksOuter');
+let scrollSpeed = 0;
+let rafId = null;
+let currentScroll = 0;
+const totalWidth = cards.length * STEP;
 
-function getPageCards(pageIdx) {
-  const start = pageIdx * VISIBLE;
-  return cards.slice(start, start + VISIBLE);
-}
-
-function buildPageNodes(pageIdx) {
-  return getPageCards(pageIdx).map((d, slot) => {
-    const originalIdx = pageIdx * VISIBLE + slot;
-    return makeCard(d, originalIdx);
-  });
-}
-
-function buildTrack() {
-  track.innerHTML = '';
-  buildPageNodes(totalPages - 1).forEach(n => track.appendChild(n));
-  for (let p = 0; p < totalPages; p++) {
-    buildPageNodes(p).forEach(n => track.appendChild(n));
+function animateScroll() {
+  if (scrollSpeed !== 0) {
+    currentScroll += scrollSpeed;
+    // Loop seamlessly
+    if (currentScroll >= totalWidth) currentScroll -= totalWidth;
+    if (currentScroll < 0) currentScroll += totalWidth;
+    track.style.transform = `translateX(-${currentScroll}px)`;
   }
-  buildPageNodes(0).forEach(n => track.appendChild(n));
+  rafId = requestAnimationFrame(animateScroll);
 }
+rafId = requestAnimationFrame(animateScroll);
 
-buildTrack();
+outer.addEventListener('mousemove', (e) => {
+  const rect = outer.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const w = rect.width;
+  const threshold = w * 0.3; // 30% from each edge triggers scroll
 
-let virtualPage = 0;
-let isJumping   = false;
-
-function getSlotOffset(slot) {
-  return slot * VISIBLE * STEP;
-}
-
-function setTrackPosition(slot, animated) {
-  if (!animated) {
-    track.style.transition = 'none';
+  if (x < threshold) {
+    // Left zone — scroll left, speed proportional to how far left
+    const ratio = 1 - (x / threshold);
+    scrollSpeed = -(ratio * 6);
+  } else if (x > w - threshold) {
+    // Right zone — scroll right
+    const ratio = (x - (w - threshold)) / threshold;
+    scrollSpeed = ratio * 6;
   } else {
-    track.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+    scrollSpeed = 0;
   }
-  track.style.transform = `translateX(-${getSlotOffset(slot)}px)`;
-}
+});
 
-function updateCounter() {
-  document.getElementById('counter').textContent = `${virtualPage + 1} / ${totalPages}`;
-}
+outer.addEventListener('mouseleave', () => {
+  scrollSpeed = 0;
+});
 
-document.getElementById('navPrev').disabled = false;
-document.getElementById('navNext').disabled = false;
-
-function goNext() {
-  if (isJumping) return;
-  virtualPage = (virtualPage + 1) % totalPages;
-  const slot = virtualPage + 1;
-  setTrackPosition(slot, true);
-  updateCounter();
-  if (virtualPage === 0) {
-    isJumping = true;
-    track.addEventListener('transitionend', function handler() {
-      track.removeEventListener('transitionend', handler);
-      setTrackPosition(1, false);
-      void track.offsetWidth;
-      track.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
-      isJumping = false;
-    });
-  }
-}
-
-function goPrev() {
-  if (isJumping) return;
-  virtualPage = (virtualPage - 1 + totalPages) % totalPages;
-  const slot = virtualPage + 1;
-  setTrackPosition(slot, true);
-  updateCounter();
-  if (virtualPage === totalPages - 1) {
-    isJumping = true;
-    track.addEventListener('transitionend', function handler() {
-      track.removeEventListener('transitionend', handler);
-      setTrackPosition(totalPages, false);
-      void track.offsetWidth;
-      track.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
-      isJumping = false;
-    });
-  }
-}
-
-document.getElementById('navNext').addEventListener('click', goNext);
-document.getElementById('navPrev').addEventListener('click', goPrev);
-
-setTrackPosition(1, false);
-updateCounter();
+// Disable transition on track for cursor-driven mode
+track.style.transition = 'none';
 
 /* ── STATE ── */
 const liked    = new Set();
@@ -634,6 +595,42 @@ document.addEventListener('click', e => {
   if (saved.has(idx)) { saved.delete(idx); showToast('Removed from saved'); }
   else                 { saved.add(idx);    showToast('🔖 Saved!'); }
 });
+
+/* ── CONTINUOUS GALLERY AUTO-SCROLL ── */
+// Left col scrolls UP, right col scrolls DOWN — always, regardless of page scroll
+(function() {
+  const colUp   = document.getElementById('galleryColLeft');
+  const colDown = document.getElementById('galleryColRight');
+  if (!colUp || !colDown) return;
+
+  const SPEED = 0.6; // px per frame — tweak for faster/slower
+  let posUp   = 0;
+  let posDown = 0;
+
+  function getHalfHeight(el) {
+    // The list is duplicated — half the scrollHeight is one full set
+    return el.scrollHeight / 2;
+  }
+
+  function tickGallery() {
+    const halfUp   = getHalfHeight(colUp);
+    const halfDown = getHalfHeight(colDown);
+
+    // Scroll up column upward
+    posUp += SPEED;
+    if (posUp >= halfUp) posUp = 0;         // seamless loop back to start
+    colUp.style.transform = `translateY(-${posUp}px)`;
+
+    // Scroll down column downward
+    posDown -= SPEED;
+    if (posDown <= -halfDown) posDown = 0;  // seamless loop back to start
+    colDown.style.transform = `translateY(${posDown}px)`;
+
+    requestAnimationFrame(tickGallery);
+  }
+
+  requestAnimationFrame(tickGallery);
+})();
 </script>
 
 </body>

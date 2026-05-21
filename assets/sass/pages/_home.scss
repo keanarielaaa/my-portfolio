@@ -1,34 +1,35 @@
 // ============================================================
 // _home.scss  –  BEM (Block Element Modifier)
-// Brix Agency — with centered layout, paginated artworks carousel
+// Keana's Portfolio — Enhanced with SVG vectors & full responsiveness
+// FIXES:
+//   1. About section: proper two-column layout (no overlap)
+//   2. Artworks: cursor-driven scroll, no nav buttons, no see-all
+//   3. Newsletter gallery: parallax scroll effect
 // ============================================================
 
 // ── Variables ────────────────────────────────────────────────
-$color-primary: #531A24;
+$color-primary:      #531A24;
 $color-primary-dark: #6A2932;
-$color-bg-cream: #E7D8C4;
-$color-bg-tan: #C6B7A3;
-$color-bg-light: #F1F3F7;
-$color-white: #FFFCF6;
-$color-text-muted: rgba(83, 26, 36, 0.56);
-$color-text-semi: rgba(83, 26, 36, 0.78);
+$color-bg-cream:     #E7D8C4;
+$color-bg-tan:       #C6B7A3;
+$color-bg-light:     #F1F3F7;
+$color-white:        #FFFCF6;
+$color-text-muted:   rgba(83, 26, 36, 0.56);
+$color-text-semi:    rgba(83, 26, 36, 0.78);
+$color-accent-gold:  #B8863A;
+$color-accent-rose:  #9E3045;
 
-$font-sans: 'Inter', sans-serif;
+$font-sans:  'Inter', sans-serif;
 $font-serif: 'Playfair Display', serif;
 
-// Max-width for all centered content
-$max-width: 1106px;
-$gutter: 167px;
+$max-width:  1106px;
 $transition: 0.2s ease;
 
-// Artworks carousel constants (keep in sync with JS: VISIBLE=3, CARD_W=300, GAP=24)
-$artwork-card-width: 300px;
-$artwork-card-gap: 24px;
-$artwork-visible: 3;
-// Viewport = 3 cards + 2 gaps
-$artwork-viewport: (
-  $artwork-card-width * $artwork-visible) + ($artwork-card-gap * ($artwork-visible - 1)
-); // 948px
+// Artworks carousel
+$artwork-card-width:   300px;
+$artwork-card-gap:     24px;
+$artwork-visible:      3;
+$artwork-viewport:     ($artwork-card-width * $artwork-visible) + ($artwork-card-gap * ($artwork-visible - 1));
 
 // ── Reset & Base ─────────────────────────────────────────────
 *,
@@ -39,29 +40,26 @@ $artwork-viewport: (
   padding: 0;
 }
 
+html { scroll-behavior: smooth; }
+
 body {
   font-family: $font-sans;
   background-color: $color-bg-tan;
   color: $color-primary;
   min-width: 320px;
+  overflow-x: hidden;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
+a { text-decoration: none; color: inherit; }
 
-img {
-  display: block;
-  max-width: 100%;
-  object-fit: cover;
-}
+img { display: block; max-width: 100%; object-fit: cover; }
 
 // ── Shared: Centered Inner ───────────────────────────────────
 @mixin centered-inner {
   width: 100%;
   max-width: $max-width;
   margin: 0 auto;
+  padding: 0 24px;
 }
 
 // ── Shared: Buttons ──────────────────────────────────────────
@@ -77,12 +75,12 @@ img {
   font-weight: 600;
   line-height: 20px;
   padding: 14px 18px;
-  transition: opacity $transition;
+  transition: opacity $transition, transform 0.15s ease;
   text-decoration: none;
+  white-space: nowrap;
 
-  &:hover {
-    opacity: 0.88;
-  }
+  &:hover   { opacity: 0.88; transform: translateY(-1px); }
+  &:active  { transform: translateY(0); }
 
   &--primary {
     background: $color-primary;
@@ -106,12 +104,10 @@ img {
     padding: 15px 18px;
   }
 
-  &--arrow {
-    .btn__arrow {
-      font-size: 16px;
-      line-height: 1;
-      font-weight: 400;
-    }
+  &--arrow .btn__arrow {
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 400;
   }
 }
 
@@ -124,7 +120,7 @@ img {
 
   &__topbar {
     background: $color-primary;
-    padding: 14px 24px;
+    padding: 12px 24px;
     display: flex;
     justify-content: center;
   }
@@ -134,35 +130,35 @@ img {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0;
+    gap: 16px;
+    flex-wrap: wrap;
   }
 
   &__topbar-left {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 24px;
+    flex-wrap: wrap;
   }
 
   &__topbar-right {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
   }
 
   &__contact-item {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
   }
 
-  &__icon {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-  }
+  &__icon { width: 18px; height: 18px; flex-shrink: 0; }
 
   &__contact-text {
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 22px;
   }
@@ -171,18 +167,16 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity $transition;
-
-    &:hover {
-      opacity: 0.8;
-    }
+    transition: opacity $transition, transform 0.15s ease;
+    &:hover { opacity: 0.8; transform: translateY(-2px); }
   }
 
   &__navbar {
     background: $color-bg-cream;
-    padding: 24px;
+    padding: 20px 24px;
     display: flex;
     justify-content: center;
+    border-bottom: 1px solid rgba(83, 26, 36, 0.1);
   }
 
   &__navbar-inner {
@@ -190,15 +184,14 @@ img {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0;
+    gap: 24px;
   }
 
-  &__logo {
-    display: flex;
-    align-items: center;
-  }
+  &__logo { display: flex; align-items: center; }
 
   &__logo-img {
-    height: 53px;
+    height: 48px;
     width: auto;
     border-radius: 4px;
     object-fit: contain;
@@ -207,13 +200,15 @@ img {
   &__nav-right {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 24px;
+    flex-wrap: wrap;
   }
 
   &__nav {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 28px;
+    flex-wrap: wrap;
   }
 
   &__nav-link {
@@ -221,51 +216,71 @@ img {
     font-size: 12px;
     font-weight: 400;
     color: $color-primary;
-    letter-spacing: 0.04em;
-    transition: opacity $transition;
+    letter-spacing: 0.08em;
+    position: relative;
+    padding-bottom: 2px;
 
-    &:hover {
-      opacity: 0.7;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: $color-primary;
+      transition: width 0.25s ease;
     }
+
+    &:hover::after { width: 100%; }
   }
 }
 
 // ── HERO ─────────────────────────────────────────────────────
 .hero {
   background: $color-bg-cream;
+  position: relative;
+  overflow: hidden;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding: 64px 24px;
-  min-height: 383px;
+  justify-content: center;
+  padding: 100px 24px 80px;
+  min-height: 460px;
+  text-align: center;
 
   &__content {
-    width: min(467px, 100%);
+    width: min(560px, 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
-    text-align: center;
+    position: relative;
+    z-index: 1;
   }
 
   &__title {
-    font-size: 48px;
-    font-weight: 800;
-    line-height: 1.1;
+    font-family: $font-serif;
+    font-size: clamp(32px, 6vw, 58px);
+    font-weight: 700;
+    line-height: 1.12;
     color: $color-primary;
+    letter-spacing: -0.01em;
   }
 
   &__description {
     font-size: 16px;
     font-weight: 400;
-    line-height: 24px;
-    color: $color-primary;
+    line-height: 26px;
+    color: rgba(83, 26, 36, 0.75);
+    max-width: 420px;
   }
 
   &__cta {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
@@ -278,178 +293,237 @@ img {
   justify-content: center;
   align-items: center;
   height: 90px;
+  border-top: 1px solid rgba(83, 26, 36, 0.12);
+  border-bottom: 1px solid rgba(83, 26, 36, 0.12);
 
   &__inner {
     @include centered-inner;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0;
   }
 
   &__logo {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: opacity $transition, transform 0.2s ease;
+    &:hover { opacity: 0.75; transform: scale(1.05); }
 
-    img {
-      height: 50px;
-      width: auto;
-      object-fit: contain;
-    }
+    img { height: 46px; width: auto; object-fit: contain; }
   }
 }
 
 // ── ABOUT ────────────────────────────────────────────────────
+// FIX 1: Proper two-column flex layout — image and text side by side, no overlap
 .about {
   background: $color-bg-cream;
-  padding: 80px 24px;
+  padding: 96px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 85px;
-  flex-wrap: wrap;
+
+  // The inner wrapper carries the two-column layout
+  &__inner {
+    @include centered-inner;
+    display: flex;
+    align-items: center;
+    gap: 72px;
+    flex-wrap: wrap;           // stacks on mobile
+    justify-content: center;
+  }
 
   &__image-wrap {
-    width: min(448px, 100%);
-    height: 542px;
-    border-: radius 8px;
-    overflow: hidden;
-    flex-shrink: 0;
-    background: $color-bg-light;
+    // Fixed width column — does NOT grow into text column
+    width: min(420px, 100%);
+    flex: 0 0 auto;            // flex-shrink: 0 prevents the image eating text space
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: -14px;
+      bottom: -14px;
+      border: 2px solid $color-accent-gold;
+      border-radius: 12px;
+      opacity: 0.35;
+    }
   }
 
   &__image {
     width: 100%;
-    height: 100%;
+    height: auto;              // natural height — no fixed height that could bleed
+    max-height: 520px;
     object-fit: cover;
+    border-radius: 10px;
+    display: block;
   }
 
   &__content {
+    // Takes remaining space, minimum comfortable width
+    flex: 1 1 280px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
-    max-width: 461px;
+    gap: 20px;
+    max-width: 480px;
   }
 
   &__title {
-    font-size: 30px;
-    font-weight: 800;
-    line-height: 36px;
+    font-family: $font-serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
     color: $color-primary;
   }
 
   &__description {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
-    line-height: 24px;
-    color: $color-primary;
+    line-height: 26px;
+    color: rgba(83, 26, 36, 0.75);
   }
 
   &__cta {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
+    flex-wrap: wrap;
   }
 }
 
 // ── ARTWORKS ─────────────────────────────────────────────────
-//
-// IMAGE PAN FIX SUMMARY:
-// ─────────────────────────────────────────────────────────────
-// The image pan animation needs the image to scroll freely,
-// but it must NEVER bleed outside the card's visual boundary.
-//
-// Solution: wrap <img> in .artworks__card__img-wrap which has
-//   • position: absolute; inset: 0   → fills the card exactly
-//   • overflow: hidden                → ALWAYS clips the image
-//   • border-radius: 12px            → rounds the clipping mask
-//   • z-index: 0                     → sits below overlays/bars
-//
-// The card itself on hover can now use overflow: visible safely
-// (needed so box-shadow isn't clipped) because the image is
-// independently clipped by its own wrapper.
-// ─────────────────────────────────────────────────────────────
-
+// FIX 2: Cursor-driven scroll — removed nav buttons & see-all link
 .artworks {
   background: $color-bg-tan;
-  padding: 80px 0 64px;
+  padding: 96px 0 72px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 40px;
   overflow: hidden;
+  position: relative;
 
   &__header {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     padding: 0 24px;
+    position: relative;
+    z-index: 1;
   }
 
   &__title {
-    font-size: 36px;
-    font-weight: 800;
+    font-family: $font-serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
     color: $color-primary;
   }
 
   &__desc {
-    font-size: 17px;
-    line-height: 27px;
-    color: $color-primary;
-    max-width: 500px;
+    font-size: 16px;
+    line-height: 26px;
+    color: rgba(83, 26, 36, 0.7);
+    max-width: 480px;
     text-align: center;
   }
 
+  // Outer is full-width — cursor zones span the entire section width
   &__outer {
-    width: min(#{$artwork-viewport + 40px}, 100vw - 48px);
-    overflow: visible;
-    margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
     position: relative;
+    z-index: 1;
+    // Show left/right fade hints
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  // Invisible hover zones that trigger directional scroll
+  &__hover-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    z-index: 10;
+    pointer-events: all;
+    cursor: none; // hide cursor in zones — feels intentional
+
+    &--left {
+      left: 0;
+      // Subtle left-arrow cursor hint via gradient
+      background: linear-gradient(
+        to right,
+        rgba(83, 26, 36, 0.04) 0%,
+        transparent 100%
+      );
+    }
+
+    &--right {
+      right: 0;
+      background: linear-gradient(
+        to left,
+        rgba(83, 26, 36, 0.04) 0%,
+        transparent 100%
+      );
+    }
   }
 
   &__track {
     display: flex;
     align-items: center;
-    gap: $artwork-card-gap;
-    padding: 60px 20px;
+    gap: 24px;
+    padding: 60px 24px;
     width: max-content;
-    margin-left: 0;
-    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    // No transition — JS drives position directly for smooth cursor control
+    will-change: transform;
   }
 
-  // ── Card ────────────────────────────────────────
   &__card {
     position: relative;
     width: $artwork-card-width;
     height: 380px;
     border-radius: 12px;
-    // No overflow:hidden here — that's handled by __img-wrap.
-    // Keeping the card itself unclipped allows box-shadow to show.
     overflow: hidden;
     flex-shrink: 0;
     cursor: pointer;
     transition:
       transform 0.40s cubic-bezier(0.34, 1.4, 0.64, 1),
-      height 0.40s cubic-bezier(0.34, 1.4, 0.64, 1),
+      height    0.40s cubic-bezier(0.34, 1.4, 0.64, 1),
       box-shadow 0.40s ease;
 
-    // ── Image wrapper: ALWAYS clips the image ──────────────
-    // This div is position:absolute so it grows with the card
-    // height on hover, and overflow:hidden always clips the img.
     &__img-wrap {
       position: absolute;
-      top: 45px; // fills 100% of card width & height
-      overflow: hidden; // ALWAYS clips — never bleeds out
-      border-radius: 12px; // matches card corners
-      z-index: 0; // below overlays and bars
+      top: 45px;
+      inset-inline: 0;
+      bottom: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      z-index: 0;
 
       img {
         width: 100%;
-        height: auto; // natural height for tall images
-        min-height: 100%; // short images fill full card
+        height: auto;
+        min-height: 100%;
         object-fit: cover;
         display: block;
         transform: translateY(0);
@@ -457,13 +531,10 @@ img {
       }
     }
 
-    // Pan animation fires on the img inside __img-wrap
     &:hover &__img-wrap img {
       animation: imgPan var(--pan-dur, 3s) ease-in-out infinite alternate;
-
     }
 
-    // ── Dark overlay on siblings ─────────────────
     &__overlay {
       position: absolute;
       inset: 0;
@@ -474,15 +545,13 @@ img {
       z-index: 1;
     }
 
-    // ── Top bar (slides down on hover) ──────────
     &__top-bar {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 52px;
-      background: rgb(231, 216, 196);
-      backdrop-filter: blur(6px);
+      background: $color-bg-cream;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -510,15 +579,13 @@ img {
       }
     }
 
-    // ── Bottom bar (slides up on hover) ─────────
     &__bottom-bar {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
       height: 50px;
-      background: rgb(231, 216, 196);
-      backdrop-filter: blur(6px);
+      background: $color-bg-cream;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -536,90 +603,15 @@ img {
       }
     }
 
-    // ── Hovered card ────────────────────────────
     &:hover {
       height: 460px;
       transform: scale(1.04) translateY(-6px);
       box-shadow: 0 32px 64px rgba(83, 26, 36, 0.28);
       z-index: 30;
-      // overflow stays hidden on the card — __img-wrap handles clipping
-      // box-shadow is NOT clipped because .artworks__outer is overflow:visible
 
-      .artworks__card__overlay {
-        opacity: 0 !important;
-      }
-
-      .artworks__card__top-bar {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .artworks__card__bottom-bar {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  }
-
-  // ── Navigation controls ─────────────────────────
-  &__controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  &__nav {
-    width: 44px;
-    height: 44px;
-    background: $color-primary;
-    border: none;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(25, 33, 61, 0.20);
-    transition: opacity $transition, transform 0.15s ease;
-
-    &:hover {
-      opacity: 0.85;
-    }
-
-    &:active {
-      transform: scale(0.93);
-    }
-
-    &:disabled {
-      opacity: 0.35;
-      cursor: default;
-    }
-  }
-
-  &__counter {
-    font-size: 13px;
-    font-weight: 600;
-    color: $color-text-muted;
-    min-width: 40px;
-    text-align: center;
-  }
-
-  &__see-all {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 16px 24px;
-    background: $color-primary;
-    color: $color-white;
-    border-radius: 8px;
-    font-family: $font-sans;
-    font-size: 16px;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(25, 33, 61, 0.12);
-    transition: opacity $transition;
-
-    &:hover {
-      opacity: 0.88;
+      .artworks__card__overlay    { opacity: 0 !important; }
+      .artworks__card__top-bar    { opacity: 1; transform: translateY(0); }
+      .artworks__card__bottom-bar { opacity: 1; transform: translateY(0); }
     }
   }
 }
@@ -636,90 +628,37 @@ img {
   border-radius: 6px;
   transition: transform 0.15s ease, background 0.15s ease;
 
-  &:hover {
-    background: rgba(83, 26, 36, 0.08);
-  }
-
-  &:active {
-    transform: scale(0.88);
-  }
+  &:hover { background: rgba(83, 26, 36, 0.08); }
+  &:active { transform: scale(0.88); }
 
   &.liked {
-    svg path {
-      fill: #e0294a;
-      stroke: #e0294a;
-    }
-
-    svg {
-      filter: drop-shadow(0 0 4px rgba(224, 41, 74, 0.45));
-    }
+    svg path { fill: #e0294a; stroke: #e0294a; }
+    svg { filter: drop-shadow(0 0 4px rgba(224, 41, 74, 0.45)); }
   }
 
-  &.saved svg path {
-    fill: $color-primary;
-  }
-
-  &.heart-bounce {
-    animation: heartBounce 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
-  }
-
-  &.save-bounce {
-    animation: saveBounce 0.40s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
-  }
+  &.saved svg path { fill: $color-primary; }
+  &.heart-bounce { animation: heartBounce 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards; }
+  &.save-bounce  { animation: saveBounce  0.40s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards; }
 }
 
 @keyframes heartBounce {
-  0% {
-    transform: scale(1);
-  }
-
-  30% {
-    transform: scale(1.55);
-  }
-
-  50% {
-    transform: scale(0.88);
-  }
-
-  70% {
-    transform: scale(1.25);
-  }
-
-  100% {
-    transform: scale(1);
-  }
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.55); }
+  50%  { transform: scale(0.88); }
+  70%  { transform: scale(1.25); }
+  100% { transform: scale(1); }
 }
 
 @keyframes saveBounce {
-  0% {
-    transform: scale(1);
-  }
-
-  30% {
-    transform: scale(1.45) translateY(-2px);
-  }
-
-  60% {
-    transform: scale(0.9);
-  }
-
-  100% {
-    transform: scale(1);
-  }
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.45) translateY(-2px); }
+  60%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
 }
 
-// ── Image pan animation ───────────────────────────────────────
-// Scrolls the image from top to bottom (and back) while hovered.
-// End value --pan-end is computed per-card in JS after image loads.
-// The clip is handled by __img-wrap (overflow:hidden), not the card.
 @keyframes imgPan {
-  0% {
-    transform: translateY(0);
-  }
-
-  100% {
-    transform: translateY(var(--pan-end, 0px));
-  }
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(var(--pan-end, 0px)); }
 }
 
 // ── MODAL OVERLAY ────────────────────────────────────────────
@@ -736,10 +675,7 @@ img {
   pointer-events: none;
   transition: opacity 0.25s ease;
 
-  &.open {
-    opacity: 1;
-    pointer-events: all;
-  }
+  &.open { opacity: 1; pointer-events: all; }
 }
 
 // ── COMMENT MODAL ────────────────────────────────────────────
@@ -753,9 +689,7 @@ img {
   transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
   overflow: hidden;
 
-  .modal-overlay.open & {
-    transform: translateY(0) scale(1);
-  }
+  .modal-overlay.open & { transform: translateY(0) scale(1); }
 
   &__head {
     padding: 20px 22px 0;
@@ -764,27 +698,16 @@ img {
     justify-content: space-between;
   }
 
-  &__title {
-    font-size: 18px;
-    font-weight: 800;
-    color: $color-primary;
-  }
+  &__title { font-size: 18px; font-weight: 800; color: $color-primary; }
 
   &__close {
-    width: 32px;
-    height: 32px;
-    border: none;
-    border-radius: 8px;
+    width: 32px; height: 32px;
+    border: none; border-radius: 8px;
     background: rgba(83, 26, 36, 0.10);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     transition: background 0.15s;
-
-    &:hover {
-      background: rgba(83, 26, 36, 0.18);
-    }
+    &:hover { background: rgba(83, 26, 36, 0.18); }
   }
 
   &__comments {
@@ -820,31 +743,19 @@ img {
     max-height: 100px;
     transition: border 0.2s;
 
-    &:focus {
-      border-color: $color-primary;
-    }
-
-    &::placeholder {
-      color: rgba(83, 26, 36, 0.40);
-    }
+    &:focus { border-color: $color-primary; }
+    &::placeholder { color: rgba(83, 26, 36, 0.40); }
   }
 
   &__send {
-    width: 42px;
-    height: 42px;
+    width: 42px; height: 42px;
     border-radius: 10px;
     background: $color-primary;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
     transition: opacity 0.2s;
     flex-shrink: 0;
-
-    &:hover {
-      opacity: 0.85;
-    }
+    &:hover { opacity: 0.85; }
   }
 }
 
@@ -854,35 +765,18 @@ img {
   align-items: flex-start;
 
   &__avatar {
-    width: 30px;
-    height: 30px;
+    width: 30px; height: 30px;
     border-radius: 50%;
     background: $color-primary;
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
     color: $color-white;
   }
 
-  &__body {
-    flex: 1;
-  }
-
-  &__name {
-    font-size: 12px;
-    font-weight: 700;
-    color: $color-primary;
-  }
-
-  &__text {
-    font-size: 13px;
-    line-height: 19px;
-    color: rgba(83, 26, 36, 0.80);
-    margin-top: 2px;
-  }
+  &__body  { flex: 1; }
+  &__name  { font-size: 12px; font-weight: 700; color: $color-primary; }
+  &__text  { font-size: 13px; line-height: 19px; color: rgba(83, 26, 36, 0.80); margin-top: 2px; }
 }
 
 // ── SHARE MODAL ──────────────────────────────────────────────
@@ -896,45 +790,28 @@ img {
   transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
   overflow: hidden;
 
-  .modal-overlay.open & {
-    transform: translateY(0) scale(1);
-  }
+  .modal-overlay.open & { transform: translateY(0) scale(1); }
 
   &__head {
     padding: 20px 22px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
   }
 
-  &__title {
-    font-size: 18px;
-    font-weight: 800;
-    color: $color-primary;
-  }
+  &__title { font-size: 18px; font-weight: 800; color: $color-primary; }
 
   &__close {
-    width: 32px;
-    height: 32px;
-    border: none;
-    border-radius: 8px;
+    width: 32px; height: 32px;
+    border: none; border-radius: 8px;
     background: rgba(83, 26, 36, 0.10);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     transition: background 0.15s;
-
-    &:hover {
-      background: rgba(83, 26, 36, 0.18);
-    }
+    &:hover { background: rgba(83, 26, 36, 0.18); }
   }
 
   &__link-row {
     margin: 16px 22px 0;
-    display: flex;
-    gap: 8px;
-    align-items: center;
+    display: flex; gap: 8px; align-items: center;
   }
 
   &__link-input {
@@ -943,13 +820,10 @@ img {
     border-radius: 10px;
     border: 1.5px solid rgba(83, 26, 36, 0.25);
     background: rgba(255, 252, 246, 0.70);
-    font-family: $font-sans;
-    font-size: 12px;
+    font-family: $font-sans; font-size: 12px;
     color: rgba(83, 26, 36, 0.60);
     outline: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     pointer-events: none;
   }
 
@@ -957,62 +831,36 @@ img {
     padding: 11px 16px;
     border-radius: 10px;
     background: $color-primary;
-    border: none;
-    cursor: pointer;
-    font-family: $font-sans;
-    font-size: 13px;
-    font-weight: 600;
+    border: none; cursor: pointer;
+    font-family: $font-sans; font-size: 13px; font-weight: 600;
     color: $color-white;
     transition: opacity 0.2s;
     white-space: nowrap;
-
-    &:hover {
-      opacity: 0.85;
-    }
-
-    &.copied {
-      background: #2a8a4a;
-    }
+    &:hover { opacity: 0.85; }
+    &.copied { background: #2a8a4a; }
   }
 
   &__platforms {
-    display: flex;
-    gap: 14px;
+    display: flex; gap: 14px;
     padding: 18px 22px 22px;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    justify-content: flex-start; flex-wrap: wrap;
   }
 }
 
 .platform-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  text-decoration: none;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  cursor: pointer; text-decoration: none;
   transition: transform 0.2s;
-  background: none;
-  border: none;
-
-  &:hover {
-    transform: translateY(-3px);
-  }
+  background: none; border: none;
+  &:hover { transform: translateY(-3px); }
 
   &__icon {
-    width: 46px;
-    height: 46px;
+    width: 46px; height: 46px;
     border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
   }
 
-  &__label {
-    font-size: 11px;
-    font-weight: 600;
-    color: rgba(83, 26, 36, 0.70);
-  }
+  &__label { font-size: 11px; font-weight: 600; color: rgba(83, 26, 36, 0.70); }
 }
 
 // ── TOAST ────────────────────────────────────────────────────
@@ -1025,8 +873,7 @@ img {
   color: $color-white;
   padding: 12px 22px;
   border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 14px; font-weight: 600;
   box-shadow: 0 8px 24px rgba(20, 6, 9, 0.25);
   z-index: 10000;
   opacity: 0;
@@ -1034,85 +881,84 @@ img {
   pointer-events: none;
   white-space: nowrap;
 
-  &.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+  &.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 // ── CONTACT ──────────────────────────────────────────────────
 .contact {
   background: $color-bg-cream;
-  padding: 80px 24px;
+  padding: 96px 24px;
+  position: relative;
+  overflow: hidden;
 
   &__inner {
     @include centered-inner;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    gap: 40px;
+    gap: 60px;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
   }
 
   &__info {
-    width: min(424px, 100%);
+    width: min(400px, 100%);
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
 
   &__title {
-    font-size: 48px;
-    font-weight: 800;
-    line-height: 1.1;
+    font-family: $font-serif;
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 700;
+    line-height: 1.15;
     color: $color-primary;
   }
 
   &__description {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
-    line-height: 24px;
-    color: $color-primary;
+    line-height: 26px;
+    color: rgba(83, 26, 36, 0.72);
   }
 
   &__socials {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
+    flex-wrap: wrap;
   }
 
   &__social {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity $transition;
-
-    &:hover {
-      opacity: 0.8;
-    }
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity $transition, transform 0.15s ease;
+    &:hover { opacity: 0.8; transform: translateY(-2px); }
   }
 
   &__form-wrap {
     flex: 1;
-    max-width: 523px;
-    padding: 32px;
-    border-radius: 8px;
-    outline: 1px solid rgba(83, 26, 36, 0.5);
+    max-width: 540px;
+    padding: 36px;
+    border-radius: 12px;
+    outline: 1px solid rgba(83, 26, 36, 0.22);
     outline-offset: -0.5px;
-    box-shadow: 0 1px 4px rgba(25, 33, 61, 0.08);
+    box-shadow: 0 4px 24px rgba(25, 33, 61, 0.06);
+    background: rgba(255, 252, 246, 0.45);
   }
 
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 22px;
   }
 
   &__form-row {
     display: flex;
     align-items: flex-start;
-    gap: 32px;
+    gap: 24px;
     flex-wrap: wrap;
   }
 }
@@ -1120,89 +966,81 @@ img {
 // ── Form Group ───────────────────────────────────────────────
 .form-group {
   flex: 1;
-  min-width: 160px;
+  min-width: 140px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 
-  &--full {
-    width: 100%;
-  }
+  &--full { width: 100%; }
 
   &__label {
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 20px;
-    color: $color-primary;
+    font-size: 13px; font-weight: 600; line-height: 20px;
+    color: $color-primary; letter-spacing: 0.02em;
   }
 
   &__input,
   &__textarea {
     width: 100%;
-    padding: 18px 16px;
+    padding: 16px;
     background: transparent;
-    border-radius: 6px;
-    outline: 1px solid $color-primary;
+    border-radius: 8px;
+    outline: 1.5px solid rgba(83, 26, 36, 0.3);
     outline-offset: -1px;
     border: none;
-    font-family: $font-sans;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
+    font-family: $font-sans; font-size: 14px; font-weight: 400; line-height: 20px;
     color: $color-primary;
-    box-shadow: 0 1px 4px rgba(25, 33, 61, 0.08);
-    transition: box-shadow $transition;
+    box-shadow: 0 1px 4px rgba(25, 33, 61, 0.05);
+    transition: outline $transition, box-shadow $transition;
 
-    &::placeholder {
-      color: rgba(83, 26, 36, 0.45);
-    }
+    &::placeholder { color: rgba(83, 26, 36, 0.38); }
 
     &:focus {
       outline: 2px solid $color-primary;
-      box-shadow: 0 0 0 3px rgba(83, 26, 36, 0.12);
+      box-shadow: 0 0 0 3px rgba(83, 26, 36, 0.1);
     }
   }
 
-  &__textarea {
-    height: 92px;
-    resize: vertical;
-  }
+  &__textarea { height: 100px; resize: vertical; }
 }
 
 // ── NEWSLETTER ───────────────────────────────────────────────
+// FIX 3: Parallax gallery — columns move at different speeds on page scroll
 .newsletter {
   background: $color-bg-tan;
-  padding: 80px 24px;
+  padding: 96px 24px;
+  position: relative;
+  overflow: hidden;
 
   &__inner {
     @include centered-inner;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 40px;
+    gap: 60px;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
   }
 
   &__content {
-    width: min(423px, 100%);
+    width: min(440px, 100%);
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
 
   &__title {
-    font-size: 30px;
-    font-weight: 800;
-    line-height: 36px;
+    font-family: $font-serif;
+    font-size: clamp(24px, 3.5vw, 34px);
+    font-weight: 700;
+    line-height: 1.25;
     color: $color-primary;
   }
 
   &__description {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    color: $color-primary;
+    font-size: 15px; font-weight: 400; line-height: 26px;
+    color: rgba(83, 26, 36, 0.72);
   }
 
   &__subscribe {
@@ -1212,7 +1050,7 @@ img {
     justify-content: space-between;
     padding: 8px 8px 8px 18px;
     border-radius: 8px;
-    outline: 1px solid $color-primary;
+    outline: 1.5px solid $color-primary;
     outline-offset: -1px;
     box-shadow: 0 1px 4px rgba(25, 33, 61, 0.08);
   }
@@ -1220,41 +1058,26 @@ img {
   &__input {
     border: none;
     background: transparent;
-    font-family: $font-sans;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
+    font-family: $font-sans; font-size: 14px; font-weight: 400; line-height: 20px;
     color: $color-primary;
     flex: 1;
 
-    &::placeholder {
-      color: $color-primary;
-    }
-
-    &:focus {
-      outline: none;
-    }
+    &::placeholder { color: rgba(83, 26, 36, 0.5); }
+    &:focus { outline: none; }
   }
 
   &__btn {
-    padding: 12px;
+    padding: 12px 16px;
     background: $color-primary;
-    border: none;
-    border-radius: 4px;
-    font-family: $font-sans;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 18px;
+    border: none; border-radius: 4px;
+    font-family: $font-sans; font-size: 12px; font-weight: 600; line-height: 18px;
     color: $color-bg-tan;
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(25, 33, 61, 0.08);
     transition: opacity $transition;
-
-    &:hover {
-      opacity: 0.85;
-    }
+    &:hover { opacity: 0.85; }
   }
 
+  // Gallery container: clips the auto-scroll movement
   &__gallery {
     width: min(460px, 100%);
     height: 460px;
@@ -1262,32 +1085,48 @@ img {
     gap: 24px;
     overflow: hidden;
     flex-shrink: 0;
+    position: relative;
+  }
+
+  // Each column wrapper clips its inner scrolling strip
+  &__col-wrap {
+    width: 218px;
+    height: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border-radius: 10px;
   }
 
   &__col {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
     width: 218px;
-    flex-shrink: 0;
+    // JS drives transform — no CSS transition so it's frame-perfect
+    will-change: transform;
 
-    &--right {
-      transform: translateY(-219px);
+    // No offset needed — JS handles positioning
+    &--up,
+    &--down {
+      // intentionally empty — direction handled by JS
     }
   }
 
   &__photo {
     width: 218px;
-    height: 273px;
-    border-radius: 8px;
+    flex-shrink: 0;
+    border-radius: 10px;
     overflow: hidden;
     background: $color-bg-light;
-    flex-shrink: 0;
+    // Variable height photos — let content define height
+    min-height: 200px;
 
     img {
       width: 100%;
       height: 100%;
+      min-height: 200px;
       object-fit: cover;
+      display: block;
     }
   }
 }
@@ -1296,84 +1135,124 @@ img {
 .footer {
   background: $color-bg-cream;
   padding: 72px 24px 0;
+  position: relative;
 
-  &__inner {
-    @include centered-inner;
-  }
+  &__inner { @include centered-inner; }
 
   &__top {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
-    padding-bottom: 64px;
+    gap: 20px;
+    padding-bottom: 60px;
   }
 
   &__newsletter-title {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 32px;
+    font-family: $font-serif;
+    font-size: clamp(20px, 3vw, 26px);
+    font-weight: 600; line-height: 1.3;
     color: $color-primary;
-    text-align: center;
-    max-width: 377px;
+    text-align: center; max-width: 360px;
   }
 
   &__newsletter-desc {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    color: $color-primary;
-    text-align: center;
-    max-width: 298px;
+    font-size: 15px; font-weight: 400; line-height: 24px;
+    color: rgba(83, 26, 36, 0.7);
+    text-align: center; max-width: 300px;
   }
 
   &__socials {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+    display: flex; align-items: center; gap: 14px;
+    flex-wrap: wrap; justify-content: center;
   }
 
   &__social {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity $transition;
-
-    &:hover {
-      opacity: 0.8;
-    }
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity $transition, transform 0.15s ease;
+    &:hover { opacity: 0.8; transform: translateY(-2px); }
   }
 
   &__bottom {
     padding: 24px 0;
-    border-top: 1px solid rgba(83, 26, 36, 0.52);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border-top: 1px solid rgba(83, 26, 36, 0.2);
+    display: flex; justify-content: center; align-items: center;
+    flex-wrap: wrap; gap: 8px;
   }
 
   &__copy {
-    text-align: center;
-    font-size: 16px;
-    font-family: $font-sans;
-    line-height: 22px;
+    text-align: center; font-size: 13px;
+    font-family: $font-sans; line-height: 22px;
 
-    &--muted {
-      color: $color-text-muted;
-    }
-
-    &--divider {
-      color: $color-primary;
-    }
-
+    &--muted   { color: $color-text-muted; }
+    &--divider { color: rgba(83, 26, 36, 0.3); margin: 0 4px; }
     &--link {
       color: $color-primary;
-      text-decoration: underline;
-
-      &:hover {
-        opacity: 0.7;
-      }
+      text-decoration: underline; text-underline-offset: 2px;
+      &:hover { opacity: 0.7; }
     }
   }
+}
 
+// ── RESPONSIVE ───────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .about__inner       { gap: 48px; }
+  .contact__form-wrap { padding: 28px; }
+}
+
+@media (max-width: 768px) {
+  .header {
+    &__topbar-left  { gap: 12px; }
+    &__topbar-right { gap: 8px; }
+    &__contact-text { font-size: 12px; }
+    &__nav          { gap: 18px; }
+    &__nav-right    { gap: 14px; }
+    &__logo-img     { height: 40px; }
+  }
+
+  .hero { padding: 72px 20px 64px; }
+
+  .brand-bar {
+    height: auto;
+    padding: 16px 20px;
+    &__inner { justify-content: center; gap: 24px; }
+  }
+
+  // About stacks vertically on tablet
+  .about__inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+  }
+  .about__image-wrap { width: 100%; }
+  .about__content    { max-width: 100%; }
+
+  .contact__inner     { flex-direction: column; }
+  .contact__form-wrap { max-width: 100%; padding: 24px 20px; }
+  .contact__form-row  { flex-direction: column; gap: 16px; }
+
+  .newsletter__inner  { flex-direction: column; }
+  .newsletter__gallery,
+  .newsletter__col-wrap { display: none; }
+
+  .form-group { min-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .header {
+    &__topbar-left { display: none; }
+    &__nav         { display: none; }
+    &__nav-right   { .btn { display: inline-flex; } }
+  }
+
+  .hero { padding: 56px 16px 48px; min-height: 380px; }
+
+  .btn { padding: 12px 14px; font-size: 13px; }
+
+  .contact {
+    padding: 64px 16px;
+    &__form-wrap { padding: 20px 16px; }
+  }
+
+  .newsletter { padding: 64px 16px; }
+  .footer     { padding: 48px 16px 0; }
 }
