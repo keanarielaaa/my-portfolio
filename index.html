@@ -253,15 +253,18 @@
                     <div class="newsletter__col-wrap">
                         <div class="newsletter__col newsletter__col--up" id="galleryColLeft">
                             <!-- original set -->
-                            <div class="newsletter__photo"><img src="images/ayosnegosyo.png" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/219x345/c6b7a3/531A24?text=+" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/219x345/e7d8c4/531A24?text=+" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/219x280/531A24/fffcf6?text=+" alt="" /></div>
+                             
+                            <div class="newsletter__photo"><img src="images/moana.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/MCBuilders.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/MCTech.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/rwa.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/tuc.png" alt="" /></div>
                             <!-- duplicate for seamless loop -->
-                            <div class="newsletter__photo"><img src="images/ayosnegosyo.png" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/219x345/c6b7a3/531A24?text=+" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/219x345/e7d8c4/531A24?text=+" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/219x280/531A24/fffcf6?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/MCBuilders.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/moana.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/MCTech.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/rwa.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/tuc.png" alt="" /></div>
                         </div>
                     </div>
 
@@ -269,15 +272,15 @@
                     <div class="newsletter__col-wrap">
                         <div class="newsletter__col newsletter__col--down" id="galleryColRight">
                             <!-- original set -->
-                            <div class="newsletter__photo"><img src="https://placehold.co/223x288/b8863a/fffcf6?text=+" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/224x380/531A24/fffcf6?text=+" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/218x351/c6b7a3/531A24?text=+" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/220x260/e7d8c4/531A24?text=+" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/RWA2.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/MCSouth.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/moana.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/lazychimp.png" alt="" /></div>
                             <!-- duplicate for seamless loop -->
-                            <div class="newsletter__photo"><img src="https://placehold.co/223x288/b8863a/fffcf6?text=+" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/224x380/531A24/fffcf6?text=+" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/218x351/c6b7a3/531A24?text=+" alt="" /></div>
-                            <div class="newsletter__photo"><img src="https://placehold.co/220x260/e7d8c4/531A24?text=+" alt="" /></div>
+                           <div class="newsletter__photo"><img src="images/RWA2.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/MCSouth.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/moana.png" alt="" /></div>
+                            <div class="newsletter__photo"><img src="images/lazychimp.png" alt="" /></div>
                         </div>
                     </div>
                 </div>
@@ -331,7 +334,7 @@ const cards = [
   { name:'@keanariela', verified:true,  color:'#1a1a2e', img:'images/moana.png' },
   { name:'@keanariela', verified:true,  color:'#1a1a2e', img:'images/RWA.png' },
   { name:'@keanariela', verified:true,  color:'#1a1a2e', img:'images/RWA2.png' },
-  { name:'@keanariela', verified:true,  color:'#1a1a2e', img:'images/TUC.png' },
+  { name:'@keanariela', verified:true,  color:'#1a1a2e', img:'images/TUC.png', link: 'tuc.html' },
   { name:'@keanariela', verified:true,  color:'#1a1a2e', img:'images/MCSouth.png' },
   { name:'@keanariela', verified:true,  color:'#1a1a2e', img:'images/MCBuilders.png' },
   { name:'@keanariela', verified:true,  color:'#1a1a2e', img:'images/MCtech.png' },
@@ -396,7 +399,22 @@ function makeCard(d, idx) {
   if (img.complete) { applyPan(); }
   else              { img.addEventListener('load', applyPan); }
 
-  return card;
+
+  // Add this block just before:  return card;
+card.addEventListener('click', (e) => {
+  // Don't navigate if clicking action buttons (like, comment, share, save)
+  if (e.target.closest('.icon-btn')) return;
+  if (d.link) {
+    window.location.href = d.link;
+  }
+});
+
+// Optional: show a pointer cursor when the card has a link
+if (d.link) {
+  card.style.cursor = 'pointer';
+}
+
+return card;
 }
 
 /* ── CURSOR-DRIVEN SCROLL ── */
