@@ -1,24 +1,24 @@
 // ============================================================
 // _tuc.scss  –  BEM (Block Element Modifier)
 // Keana's Portfolio — TUC Project Detail Page
-// Shares the same design system as _home.scss
+// Updated to match _home.scss design system
 // ============================================================
 
-// ── Variables ────────────────────────────────────────────────
-$color-primary: #531A24;
-$color-primary-dark: #6A2932;
-$color-bg-cream: #E7D8C4;
-$color-bg-tan: #C6B7A3;
-$color-bg-light: #F1F3F7;
-$color-white: #FFFCF6;
-$color-text-muted: rgba(83, 26, 36, 0.56);
-$color-text-semi: rgba(83, 26, 36, 0.78);
-$color-accent-teal: #2AADAE;
+// ── Variables (matches _home.scss) ──────────────────────────
+$color-primary:       #7B1D2E;
+$color-primary-dark:  #521320;
+$color-bg-cream:      #F2E8D9;
+$color-bg-tan:        #E3D4BC;
+$color-bg-light:      #FAF6EE;
+$color-white:         #FAF6EE;
+$color-text-muted:    rgba(123, 29, 46, 0.56);
+$color-text-semi:     rgba(123, 29, 46, 0.78);
+$color-accent-teal:   #2AADAE;
 $color-accent-teal-light: rgba(42, 173, 174, 0.12);
-$color-accent-gold: #B8863A;
+$color-accent-gold:   #B8863A;
 
-$font-sans: 'Inter', sans-serif;
-$font-serif: 'Playfair Display', serif;
+$font-sans:   'Inter', sans-serif;
+$font-serif:  'Poppins', sans-serif;
 
 $max-width: 1106px;
 $transition: 0.2s ease;
@@ -41,7 +41,6 @@ body {
   background-color: $color-bg-tan;
   color: $color-primary;
   min-width: 320px;
-  // overflow-x: hidden;
 }
 
 a {
@@ -92,7 +91,7 @@ img {
   &--primary {
     background: $color-primary;
     color: #fff;
-    box-shadow: 0 1px 4px rgba(25, 33, 61, 0.08);
+    box-shadow: 0 1px 4px rgba(123, 29, 46, 0.08);
   }
 
   &--outline-dark {
@@ -126,8 +125,8 @@ img {
 
   &--light {
     color: $color-bg-cream;
-    background: rgba(231, 216, 196, 0.15);
-    border-color: rgba(231, 216, 196, 0.3);
+    background: rgba(242, 232, 217, 0.15);
+    border-color: rgba(242, 232, 217, 0.3);
   }
 }
 
@@ -204,7 +203,7 @@ img {
     padding: 20px 24px;
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid rgba(83, 26, 36, 0.1);
+    border-bottom: 1px solid rgba(123, 29, 46, 0.1);
   }
 
   &__navbar-inner {
@@ -277,7 +276,6 @@ img {
   overflow: hidden;
   position: relative;
 
-  // Subtle teal glow blob in background
   &::before {
     content: '';
     position: absolute;
@@ -302,7 +300,6 @@ img {
     z-index: 1;
   }
 
-  // Left column: all text content
   &__left {
     display: flex;
     flex-direction: column;
@@ -353,8 +350,8 @@ img {
     font-size: 12px;
     font-weight: 600;
     color: $color-primary;
-    background: rgba(83, 26, 36, 0.08);
-    border: 1px solid rgba(83, 26, 36, 0.15);
+    background: rgba(123, 29, 46, 0.08);
+    border: 1px solid rgba(123, 29, 46, 0.15);
     border-radius: 100px;
     padding: 4px 12px;
     letter-spacing: 0.04em;
@@ -379,7 +376,7 @@ img {
     font-size: 17px;
     font-weight: 400;
     line-height: 28px;
-    color: rgba(83, 26, 36, 0.70);
+    color: rgba(123, 29, 46, 0.70);
     max-width: 460px;
   }
 
@@ -392,7 +389,6 @@ img {
     margin-bottom: 80px;
   }
 
-  // Right side: mockup cluster
   &__mockup {
     flex-shrink: 0;
     width: min(480px, 50%);
@@ -402,13 +398,9 @@ img {
     justify-content: center;
     align-items: flex-end;
     margin-top: 0;
-
-    // Whole cluster (laptop + badges) slides in together
     animation: mockupSlideIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-delay: 0.05s;
 
-    // Direct img (the laptop) — no extra animation needed,
-    // it rides with the parent
     >img {
       max-width: 700px;
       height: auto;
@@ -416,7 +408,6 @@ img {
     }
   }
 
-  // ── Floating stat badges ──────────────────────────────────
   &__badge {
     position: absolute;
     background: $color-primary;
@@ -426,9 +417,8 @@ img {
     display: flex;
     flex-direction: column;
     gap: 2px;
-    box-shadow: 0 8px 28px rgba(83, 26, 36, 0.28);
+    box-shadow: 0 8px 28px rgba(123, 29, 46, 0.28);
     z-index: 10;
-    // Entrance + float combined via two animations
     animation:
       badgeSlideIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both,
       badgeFloat 3s ease-in-out infinite;
@@ -436,7 +426,7 @@ img {
     &--top-right {
       top: 18%;
       right: -32px;
-      animation-delay: 0.45s, 1.15s; // enters just after laptop lands
+      animation-delay: 0.45s, 1.15s;
     }
 
     &--bottom-left {
@@ -452,17 +442,9 @@ img {
     }
 
     @media (max-width: 768px) {
-      &--top-right {
-        right: 8px;
-      }
-
-      &--bottom-left {
-        left: 8px;
-      }
-
-      &--bottom-right {
-        right: 8px;
-      }
+      &--top-right  { right: 8px; }
+      &--bottom-left { left: 8px; }
+      &--bottom-right { right: 8px; }
     }
   }
 
@@ -478,14 +460,14 @@ img {
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.04em;
-    color: rgba(231, 216, 196, 0.65);
+    color: rgba(242, 232, 217, 0.65);
     white-space: nowrap;
   }
 
   &__mockup-frame {
     border-radius: 12px 12px 0 0;
     overflow: hidden;
-    box-shadow: 0 -8px 60px rgba(83, 26, 36, 0.18);
+    box-shadow: 0 -8px 60px rgba(123, 29, 46, 0.18);
     background: $color-bg-light;
 
     img {
@@ -511,7 +493,7 @@ img {
       bottom: 0;
       z-index: 3;
       border-radius: 12px 12px 0 0;
-      box-shadow: 0 -4px 40px rgba(83, 26, 36, 0.22);
+      box-shadow: 0 -4px 40px rgba(123, 29, 46, 0.22);
 
       @media (max-width: 640px) {
         display: none;
@@ -522,39 +504,18 @@ img {
 
 // ── Mockup + badge animations ─────────────────────────────────
 @keyframes mockupSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateX(60px) translateY(12px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0) translateY(0);
-  }
+  0%   { opacity: 0; transform: translateX(60px) translateY(12px); }
+  100% { opacity: 1; transform: translateX(0) translateY(0); }
 }
 
 @keyframes badgeSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateX(40px) scale(0.92);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0px) scale(1);
-  }
+  0%   { opacity: 0; transform: translateX(40px) scale(0.92); }
+  100% { opacity: 1; transform: translateX(0px) scale(1); }
 }
 
 @keyframes badgeFloat {
-
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-6px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
 }
 
 // ── TUC OVERVIEW (Stats Bar) ─────────────────────────────────
@@ -604,13 +565,13 @@ img {
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(231, 216, 196, 0.55);
+    color: rgba(242, 232, 217, 0.55);
   }
 
   &__stat-divider {
     width: 1px;
     height: 48px;
-    background: rgba(231, 216, 196, 0.18);
+    background: rgba(242, 232, 217, 0.18);
     flex-shrink: 0;
 
     @media (max-width: 480px) {
@@ -654,7 +615,7 @@ img {
     font-size: 15px;
     font-weight: 400;
     line-height: 27px;
-    color: rgba(83, 26, 36, 0.74);
+    color: rgba(123, 29, 46, 0.74);
   }
 
   &__quote-wrap {
@@ -669,7 +630,7 @@ img {
     color: $color-bg-cream;
     border-radius: 16px;
     padding: 40px 36px 36px;
-    box-shadow: 0 20px 60px rgba(83, 26, 36, 0.22);
+    box-shadow: 0 20px 60px rgba(123, 29, 46, 0.22);
     overflow: hidden;
 
     &::after {
@@ -679,7 +640,7 @@ img {
       right: -60px;
       width: 180px;
       height: 180px;
-      border: 40px solid rgba(231, 216, 196, 0.06);
+      border: 40px solid rgba(242, 232, 217, 0.06);
       border-radius: 50%;
     }
 
@@ -708,7 +669,7 @@ img {
     font-style: normal;
     font-size: 13px;
     font-weight: 600;
-    color: rgba(231, 216, 196, 0.60);
+    color: rgba(242, 232, 217, 0.60);
     letter-spacing: 0.02em;
     position: relative;
     z-index: 1;
@@ -766,7 +727,7 @@ img {
     font-size: 16px;
     font-weight: 400;
     line-height: 26px;
-    color: rgba(83, 26, 36, 0.70);
+    color: rgba(123, 29, 46, 0.70);
     max-width: 480px;
     text-align: center;
   }
@@ -776,7 +737,7 @@ img {
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
     width: 100%;
-    
+
     @media (max-width: 900px) {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -793,12 +754,12 @@ img {
     display: flex;
     flex-direction: column;
     gap: 14px;
-    border: 1px solid rgba(83, 26, 36, 0.08);
+    border: 1px solid rgba(123, 29, 46, 0.08);
     transition: transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.28s ease;
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(83, 26, 36, 0.12);
+      box-shadow: 0 16px 48px rgba(123, 29, 46, 0.12);
     }
   }
 
@@ -832,7 +793,7 @@ img {
     font-size: 14px;
     font-weight: 400;
     line-height: 23px;
-    color: rgba(83, 26, 36, 0.70);
+    color: rgba(123, 29, 46, 0.70);
   }
 }
 
@@ -872,7 +833,7 @@ img {
     font-size: 15px;
     font-weight: 400;
     line-height: 27px;
-    color: rgba(83, 26, 36, 0.74);
+    color: rgba(123, 29, 46, 0.74);
   }
 
   &__tools {
@@ -902,7 +863,7 @@ img {
     font-weight: 600;
     color: $color-primary;
     background: $color-bg-cream;
-    border: 1px solid rgba(83, 26, 36, 0.18);
+    border: 1px solid rgba(123, 29, 46, 0.18);
     border-radius: 6px;
     padding: 6px 12px;
   }
@@ -922,24 +883,18 @@ img {
     align-items: flex-start;
     gap: 24px;
     padding: 28px 0;
-    border-bottom: 1px solid rgba(83, 26, 36, 0.12);
+    border-bottom: 1px solid rgba(123, 29, 46, 0.12);
     position: relative;
 
-    &:first-child {
-      padding-top: 0;
-    }
-
-    &:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
+    &:first-child { padding-top: 0; }
+    &:last-child  { border-bottom: none; padding-bottom: 0; }
   }
 
   &__step-num {
     font-family: $font-serif;
     font-size: 28px;
     font-weight: 700;
-    color: rgba(83, 26, 36, 0.15);
+    color: rgba(123, 29, 46, 0.15);
     line-height: 1;
     flex-shrink: 0;
     width: 36px;
@@ -968,7 +923,7 @@ img {
       font-size: 14px;
       font-weight: 400;
       line-height: 22px;
-      color: rgba(83, 26, 36, 0.68);
+      color: rgba(123, 29, 46, 0.68);
     }
   }
 }
@@ -1007,15 +962,10 @@ img {
     columns: 3;
     column-gap: 18px;
     width: 100%;
-    overflow: visible; // contain floats
+    overflow: visible;
 
-    @media (max-width: 768px) {
-      columns: 2;
-    }
-
-    @media (max-width: 480px) {
-      columns: 1;
-    }
+    @media (max-width: 768px) { columns: 2; }
+    @media (max-width: 480px) { columns: 1; }
   }
 
   &__item {
@@ -1026,8 +976,8 @@ img {
     background: $color-bg-tan;
     cursor: pointer;
     margin-bottom: 18px;
-    display: inline-block; // ← required for columns to work
-    width: 100%; // ← required for columns to work
+    display: inline-block;
+    width: 100%;
 
     img {
       width: 100%;
@@ -1040,7 +990,7 @@ img {
   &__item-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(83, 26, 36, 0.65) 0%, transparent 55%);
+    background: linear-gradient(to top, rgba(123, 29, 46, 0.65) 0%, transparent 55%);
     display: flex;
     align-items: flex-end;
     padding: 20px;
@@ -1074,7 +1024,7 @@ img {
     content: '';
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(231, 216, 196, 0.08);
+    border: 1px solid rgba(242, 232, 217, 0.08);
     pointer-events: none;
   }
 
@@ -1116,7 +1066,7 @@ img {
     font-size: 16px;
     font-weight: 400;
     line-height: 26px;
-    color: rgba(231, 216, 196, 0.65);
+    color: rgba(242, 232, 217, 0.65);
     max-width: 400px;
   }
 
@@ -1126,7 +1076,7 @@ img {
     margin-top: 8px;
 
     &:hover {
-      background: darken(#E7D8C4, 4%);
+      background: darken(#F2E8D9, 4%);
     }
   }
 }
@@ -1163,7 +1113,7 @@ img {
     font-size: 15px;
     font-weight: 400;
     line-height: 24px;
-    color: rgba(83, 26, 36, 0.7);
+    color: rgba(123, 29, 46, 0.7);
     text-align: center;
     max-width: 300px;
   }
@@ -1190,7 +1140,7 @@ img {
 
   &__bottom {
     padding: 24px 0;
-    border-top: 1px solid rgba(83, 26, 36, 0.2);
+    border-top: 1px solid rgba(123, 29, 46, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1204,66 +1154,35 @@ img {
     font-family: $font-sans;
     line-height: 22px;
 
-    &--muted {
-      color: $color-text-muted;
-    }
-
-    &--divider {
-      color: rgba(83, 26, 36, 0.3);
-      margin: 0 4px;
-    }
+    &--muted   { color: $color-text-muted; }
+    &--divider { color: rgba(123, 29, 46, 0.3); margin: 0 4px; }
 
     &--link {
       color: $color-primary;
       text-decoration: underline;
       text-underline-offset: 2px;
 
-      &:hover {
-        opacity: 0.7;
-      }
+      &:hover { opacity: 0.7; }
     }
   }
 }
 
 // ── RESPONSIVE ───────────────────────────────────────────────
 @media (max-width: 1024px) {
-  .tuc-why__inner {
-    gap: 48px;
-  }
-
-  .tuc-process__inner {
-    gap: 48px;
-  }
+  .tuc-why__inner    { gap: 48px; }
+  .tuc-process__inner { gap: 48px; }
 }
 
 @media (max-width: 768px) {
   .header {
-    &__topbar-left {
-      gap: 12px;
-    }
-
-    &__topbar-right {
-      gap: 8px;
-    }
-
-    &__contact-text {
-      font-size: 12px;
-    }
-
-    &__nav {
-      gap: 18px;
-    }
-
-    &__nav-right {
-      gap: 14px;
-    }
-
-    &__logo-img {
-      height: 40px;
-    }
+    &__topbar-left  { gap: 12px; }
+    &__topbar-right { gap: 8px; }
+    &__contact-text { font-size: 12px; }
+    &__nav          { gap: 18px; }
+    &__nav-right    { gap: 14px; }
+    &__logo-img     { height: 40px; }
   }
 
-  // Hero collapses back to vertical on tablet/mobile
   .tuc-hero {
     padding: 60px 24px 0;
 
@@ -1276,77 +1195,33 @@ img {
 
     &__breadcrumb,
     &__meta,
-    &__cta-row {
-      justify-content: center;
-    }
+    &__cta-row { justify-content: center; }
 
-    &__title {
-      max-width: 100%;
-    }
+    &__title,
+    &__subtitle { max-width: 100%; }
 
-    &__subtitle {
-      max-width: 100%;
-    }
+    &__cta-row  { margin-bottom: 40px; }
+    &__mockup   { width: 100%; max-width: 100%; }
 
-    &__cta-row {
-      margin-bottom: 40px;
-    }
-
-    &__mockup {
-      width: 100%;
-      max-width: 100%;
-    }
-
-    &__mockup-frame--main {
-      height: 300px;
-    }
+    &__mockup-frame--main { height: 300px; }
   }
 
-  .tuc-overview__stats {
-    padding: 28px 0;
-    gap: 8px;
-  }
+  .tuc-overview__stats  { padding: 28px 0; gap: 8px; }
+  .tuc-overview__stat   { padding: 0 12px; }
 
-  .tuc-overview__stat {
-    padding: 0 12px;
-  }
+  .tuc-why__inner       { flex-direction: column; gap: 40px; }
+  .tuc-why__quote-wrap  { width: 100%; }
 
-  .tuc-why__inner {
-    flex-direction: column;
-    gap: 40px;
-  }
+  .tuc-process__inner   { flex-direction: column; gap: 40px; }
+  .tuc-process__left    { max-width: 100%; }
 
-  .tuc-why__quote-wrap {
-    width: 100%;
-  }
-
-  .tuc-process__inner {
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .tuc-process__left {
-    max-width: 100%;
-  }
-
-  .tuc-gallery__layout {
-    grid-template-columns: 1fr;
-  }
-
-  .tuc-gallery__col-bottom {
-    grid-template-columns: 1fr 1fr;
-  }
+  .tuc-gallery__col-bottom { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 480px) {
   .header {
-    &__topbar-left {
-      display: none;
-    }
-
-    &__nav {
-      display: none;
-    }
+    &__topbar-left { display: none; }
+    &__nav         { display: none; }
   }
 
   .tuc-hero {
@@ -1357,51 +1232,24 @@ img {
       align-items: stretch;
     }
 
-    .btn {
-      justify-content: center;
-    }
+    .btn { justify-content: center; }
 
-    &__mockup-frame--main {
-      height: 240px;
-    }
+    &__mockup-frame--main { height: 240px; }
   }
 
-  .tuc-overview__stat-divider {
-    display: none;
+  .tuc-overview {
+    &__stat-divider { display: none; }
+    &__stats        { gap: 20px; }
   }
 
-  .tuc-overview__stats {
-    gap: 20px;
-  }
+  .tuc-values  { padding: 72px 16px; }
+  .tuc-why     { padding: 72px 16px; }
+  .tuc-process { padding: 72px 16px; }
+  .tuc-gallery { padding: 72px 16px; }
+  .tuc-next    { padding: 72px 16px; }
+  .footer      { padding: 48px 16px 0; }
 
-  .tuc-values {
-    padding: 72px 16px;
-  }
-
-  .tuc-why {
-    padding: 72px 16px;
-  }
-
-  .tuc-process {
-    padding: 72px 16px;
-  }
-
-  .tuc-gallery {
-    padding: 72px 16px;
-  }
-
-  .tuc-next {
-    padding: 72px 16px;
-  }
-
-  .footer {
-    padding: 48px 16px 0;
-  }
-
-  // REPLACE WITH:
-  .tuc-gallery__col-bottom {
-    grid-template-columns: 1fr;
-  }
+  .tuc-gallery__col-bottom { grid-template-columns: 1fr; }
 }
 
 .site-wrap {

@@ -1,2 +1,8 @@
 @use "pages/home" as *;
 @use "pages/tuc" as *;
+@use "pages/artwork" as *;
+@use "pages/about" as *;
+@use "pages/contact" as *;
+
+@use "components/header" as *;
+@use "components/footer" as *;
